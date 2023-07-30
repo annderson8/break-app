@@ -6,7 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { TicketIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 
-import Layout from "../../hocs/Layout";
+import Layout from "../../components/hocs/Layout";
 
 import { setAlert } from "../../redux/actions/alert";
 import { check_coupon } from "../../redux/actions/coupons";
@@ -28,8 +28,11 @@ import {
 import CartItem from "../../components/cart/CartItem";
 import CheckoutForm from "../../components/checkout/CheckoutForm";
 
+
+const pk_stripe = toString(process.env.PUBLIC_KEY_STRIPE);
+
 const stripePromise = loadStripe(
-  "pk_test_51NQ46oJG3NL7E2w0pNoWwTY8JUsyKIBuMf1A8J07fkq5Ofvdra4m3FDKAp8MhipFg2wcs4IfeElADFT7QPO6Mo4f008rLaWjsu"
+  pk_stripe
 );
 
 const Checkout = ({
@@ -55,6 +58,9 @@ const Checkout = ({
   check_coupon,
   coupon,
   clientSecret,
+  get_items,
+  get_total,
+  get_item_total,
 }) => {
   const [formData, setFormData] = useState({
     coupon_name: "",
@@ -68,7 +74,8 @@ const Checkout = ({
     get_items();
     get_total();
     get_item_total();
-  }, [render]);
+  }, [render,get_items, get_total,get_item_total]);
+
 
   const { coupon_name, shipping_id } = formData;
 
@@ -84,7 +91,7 @@ const Checkout = ({
     if (coupon && coupon !== null && coupon !== undefined)
       get_payment_total(coupon.name);
     else get_payment_total("default");
-  }, [coupon, render]);
+  }, [coupon, render, get_payment_total]);
 
   //Payments
 
@@ -104,7 +111,7 @@ const Checkout = ({
       };
       fetchData();
     }
-  }, [total_amount]);
+  }, [total_amount, coupon_name, shipping_id, process_payment_stripe]);
 
   const appearance = {
     theme: "flat",

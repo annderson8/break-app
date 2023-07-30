@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { signup } from "../../redux/actions/auth";
 
-import Layout from "../../hocs/Layout";
+import Layout from "../../components/hocs/Layout";
 import logo_break from "../../logo_break.svg";
 
 const Signup = ({ signup }) => {
@@ -11,7 +11,7 @@ const Signup = ({ signup }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [accountCreated, setAccountCreated] = useState(false);
+  // const [accountCreated, setAccountCreated] = useState(false);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -29,7 +29,7 @@ const Signup = ({ signup }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     signup(first_name, last_name, email, password, re_password);
-    setAccountCreated(true);
+    // setAccountCreated(true);
     window.scrollTo(0, 0);
   };
 

@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-
-import Layout from '../../hocs/Layout'
 import { connect } from 'react-redux'
-import { Navigate } from 'react-router';
 import QueryString from 'query-string';
 import { useLocation } from 'react-router-dom';
+
+import Layout from "../../components/hocs/Layout";
 
 import { reset } from '../../redux/actions/payment';
 
@@ -16,7 +15,7 @@ const ThankYou = ({
 
     useEffect(() => {
         reset()
-    }, [])
+    }, [reset])
 
     const location = useLocation();
 
@@ -37,7 +36,7 @@ const ThankYou = ({
 				"Order canceled -- continue to shop around and checkout when you're ready."
 			);
 		}
-	}, []);
+	}, [location]);
 
     // if(!isAuthenticated)
     //     return <Navigate to='/' />;

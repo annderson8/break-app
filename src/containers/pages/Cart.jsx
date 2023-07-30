@@ -1,6 +1,6 @@
-import Layout from "../../hocs/Layout";
 import { useState } from "react";
 import { connect } from "react-redux";
+import Layout from "../../components/hocs/Layout";
 import { setAlert } from "../../redux/actions/alert";
 import {
   remove_item,
@@ -38,14 +38,14 @@ const Cart = ({
     get_items();
     get_total();
     get_item_total();
-  }, [render]);
+  }, [render, get_items, get_total,get_item_total ]);
 
 
   const [wishProduct, setWishProduct] = useState([]);
 
   useEffect(() => {
     get_wishlist_items();
-  }, []);
+  }, [get_wishlist_items]);
 
   useEffect(() => {
     setWishProduct( wishlist && wishlist.map(item => item.product))

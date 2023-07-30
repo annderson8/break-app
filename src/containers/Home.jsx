@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import Layout from "../hocs/Layout";
+import Layout from "../components/hocs/Layout";
 import { get_products } from "../redux/actions/products";
 import { get_wishlist_items } from "../redux/actions/wishlist";
 
@@ -24,7 +24,7 @@ const Home = ({
     window.scrollTo(0, 0);
     get_products();
     
-  }, []);
+  }, [get_products]);
 
   useEffect(() => {
     if (products) {
@@ -36,7 +36,7 @@ const Home = ({
     if (isAuthenticated) {
       get_wishlist_items();
     }
-  }, []);
+  }, [isAuthenticated, get_wishlist_items]);
   
   useEffect(() => {
     if (wishlist) {
@@ -61,7 +61,7 @@ const Home = ({
         setIsSearch(false);
       }
     }
-  }, [items, searchByTitle]);
+  }, [items, searchByTitle, products]);
 
   return (
     <Layout>
